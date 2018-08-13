@@ -39,6 +39,10 @@ module "dcos-mesos-public-agent" {
 resource "null_resource" "public-agents" {
   count = "${var.num_public_agents}"
 
+  triggers = {
+    dependency_id = "${join(",", var.depends_on)}"
+  }
+
   connection {
     host = "${element(var.public_agent_ips, count.index)}"
     user = "${var.os_user}"
