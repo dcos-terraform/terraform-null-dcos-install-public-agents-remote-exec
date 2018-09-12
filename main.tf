@@ -46,7 +46,7 @@ resource "null_resource" "public-agents" {
   count = "${var.num_public_agents}"
 
   triggers = {
-    dependency_id = "${join(",", var.depends_on)}"
+    trigger = "${join(",", var.trigger)}"
   }
 
   connection {
@@ -69,6 +69,7 @@ resource "null_resource" "public-agents" {
   # Install Master Script
   provisioner "remote-exec" {
     inline = [
+      "# depends ${join(",",var.depends_on)}'",
       "sudo chmod +x run.sh",
       "sudo ./run.sh",
     ]
