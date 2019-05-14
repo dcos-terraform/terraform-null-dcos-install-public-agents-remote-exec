@@ -52,6 +52,7 @@ resource "null_resource" "public-agents" {
   connection {
     host = "${element(var.public_agent_ips, count.index)}"
     user = "${var.os_user}"
+    agent= true
   }
 
   provisioner "file" {
